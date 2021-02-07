@@ -9,7 +9,7 @@ const Notes = () => {
     const [loading, setLoading] = useState(false);
     const [note, setNote] = useState({ note: '' });
     const [notes, setNotes] = useState([]);
-    // const [possibilityEdit, setPossibilityEdit] = useState(true);
+    const [possibilityEdit, setPossibilityEdit] = useState(true);
 
     let changeInputNote = e => {
         let name = e.target.name;
@@ -35,7 +35,7 @@ const Notes = () => {
             return noteList[id]
         })
         setNotes(noteList)
-    }, []);
+    }, [notes]);
     let removeNote = async id => {
         setLoading(true)
         let index = notes.findIndex(i => i.id === id);
@@ -45,33 +45,31 @@ const Notes = () => {
             .catch(console.error)
         setLoading(false)
     }
-    let postEditNote = async (e, id) => {
+
+    let enableToEdit = () => {
+        setPossibilityEdit(false)
+    }
+    let disableToEdit = async (e, id) => {
         let index = notes.findIndex(i => i.id === id);
         let copyNotes = [...notes];
         let value = { note: e.target.value };
-        console.log(e.target.value);
+        setLoading(true)
         await axios.patch('/notes/' + copyNotes[index].id + '.json', value)
             .then(response => console.log(response))
-            .catch(console.error)
+            .catch(console.error);
+        setPossibilityEdit(true);
+        setLoading(false)
     }
- 
-    // let enableToEdit = () => {
-    //     setPossibilityEdit(false)
-    // }
-    // let disableToEdit = () => {
-    //     setPossibilityEdit(true)
-    // }
-    // console.log(notes);
+
     let addNotesList = notes.map(list => {
         return <NotesList
             key={list.id}
             value={list.note}
-            // name='note'
+            name='note'
             delete={() => removeNote(list.id)}
-            // edit={() => enableToEdit(list.id)}
-            // disabled={possibilityEdit}
-            changeNote={(e)=>postEditNote(e, list.id)}
-            // blur={(e)=>postEditNote(e, list.id)}
+            edit={() => enableToEdit(list.id)}
+            disabled={possibilityEdit}
+            blur={(e) => disableToEdit(e, list.id)}
         />
     })
     return (

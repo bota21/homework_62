@@ -4,21 +4,19 @@ import React from 'react';
 const NotesList = props => {
     return (
         <div className='NotesList'>
-            <textarea type='text' className="text_list"
-            // <input type='text' className="text_list"
-                value={props.value}
+            <textarea className="text_list"
                 name={props.name}
-                // disabled={props.disabled}
-                onChange={props.ChangeNote}
-                // onBlur={props.blur}
-           >
+                disabled={props.disabled}
+                onBlur={props.blur}
+            >
+                {props.value}
             </textarea>
             <div className="noteList_wrapper">
-                {/* <div className='edit' onClick={props.edit}></div> */}
+                <div className='edit' onClick={props.edit}></div>
                 <div className='del' onClick={props.delete}></div>
             </div>
         </div>
     )
 }
 
-export default React.memo(NotesList);
+export default NotesList

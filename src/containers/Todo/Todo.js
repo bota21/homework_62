@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 import Spinner from '../../components/ModalWindow/Spinner/Spinner';
 
 function Todo() {
-  const [todo, setTodos] = useState([]);
+  const [todo, setTodo] = useState([]);
   const [task, setTask] = useState({ text: '' });
   const [loading, setLoading] = useState(false);
 
@@ -34,15 +34,17 @@ function Todo() {
       list.id = id;
       return request[id]
     })
-    setTodos(request);
-  }, [])
+    setTodo(request);
+  }, [todo])
 
   let removeTask = async id => {
+    setLoading(true)
     const index = todo.findIndex(item => item.id === id);
     let copyTodo = [...todo];
-    let request = await axios.delete('/todo/' + copyTodo[index].id + '.json')
+    await axios.delete('/todo/' + copyTodo[index].id + '.json')
       .then(res => console.log(res))
-    .catch(console.error)
+      .catch(console.error)
+    setLoading(false)
   };
 
   let newTask = todo.map(item => {

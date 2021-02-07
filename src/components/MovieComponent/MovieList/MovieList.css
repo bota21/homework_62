@@ -9,6 +9,11 @@
     padding: 8px;
     outline: none;
     text-transform: capitalize;
+    color: #000;
+}
+.list_buttons_wrapper{
+    display: flex;
+    margin-left: 10px;
 }
 .del_movie{
     margin: 0 0 3px 8px;

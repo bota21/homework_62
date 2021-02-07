@@ -9,6 +9,7 @@ const Movie = () => {
   const [movies, setMovies] = useState([])
   const [newMovie, setNewMovie] = useState({ film: '' });
   const [loading, setloading] = useState(false);
+  const [editMovie, setEditMovie] = useState(true);
 
   let onInputChange = (e) => {
     let name = e.target.name;
@@ -27,7 +28,7 @@ const Movie = () => {
       return request[id]
     })
     setMovies(request)
-  }, [])
+  }, [movies])
 
   let onSubmitForm = async (e) => {
     e.preventDefault();
@@ -39,13 +40,27 @@ const Movie = () => {
     setloading(false)
   }
   let removeItem = async (id) => {
+    setloading(true);
     let index = movies.findIndex(i => i.id === id);
     let copyMovie = [...movies];
     await axios.delete('/movie/' + copyMovie[index].id + '.json')
       .then(res => console.log(res))
       .catch(console.error)
+    setloading(false)
   }
-  let changeName = async (e, id) => {
+
+  let postChanges = async (e, id) => {
+    let index = movies.findIndex(i => i.id === id);
+    let copyMovie = [...movies];
+    let value = { film: e.target.value };
+    setloading(true);
+    await axios.patch('/movie/' + copyMovie[index].id + '.json', value)
+      .then(res => console.log(res))
+      .catch(console.error);
+    setEditMovie(true);
+    setloading(false)
+  }
+  let changeMovieName = async (e, id) => {
     let index = movies.findIndex(i => i.id === id);
     let copyMovie = [...movies];
     let value = { film: e.target.value };
@@ -54,22 +69,29 @@ const Movie = () => {
       .catch(console.error)
   }
 
+  let canEdit = () => {
+    setEditMovie(false)
+  }
+
   return (
     <div className="Movie">
       {loading ? <Spinner /> : null}
       <MovieForm
         change={onInputChange}
         name='film'
-        // value={movies.name}
         submit={onSubmitForm}
       />
       <p className='title'>To watch list</p>
       {movies.map(item => {
         return <MovieList
           key={item.id}
-          changeName={(e) => changeName(e, item.id)}
+          postChanges={(e) => postChanges(e, item.id)}
+          name='film'
+          changeName={(e) => changeMovieName(e, item.id)}
           value={item.film}
           click={() => removeItem(item.id)}
+          disabled={editMovie}
+          edit={canEdit}
         />
       })}
     </div>
