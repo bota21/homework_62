@@ -1,0 +1,16 @@
+.list_wrapper{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px 0;
+}
+.list_input{
+    width: 400px;
+    padding: 8px;
+    outline: none;
+    text-transform: capitalize;
+}
+.del_movie{
+    margin: 0 0 3px 8px;
+
+}

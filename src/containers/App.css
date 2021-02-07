@@ -1,0 +1,24 @@
+.App{
+  padding: 0;
+}
+.header {
+  width: 100%;
+  background: lightblue;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+}
+.header_link{
+  background: blue;
+  padding: 10px 15px;
+  border-radius: 4px;
+  margin: 0 10px;
+  text-decoration: none;
+  color: #fff;
+}
+.header_link:hover{
+  box-shadow: 0 0 1px rgb(77, 76, 76);
+}
+.header_link:active{
+  box-shadow: inset 0 0 3px rgb(97, 94, 94);
+}

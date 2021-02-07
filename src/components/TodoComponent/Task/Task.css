@@ -1,0 +1,21 @@
+.task_wrapper{
+    width: 492px;
+    padding: 8px 10px 8px 10px;
+    border: 1px solid rgb(94, 94, 94);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 2px;
+    margin: 10px 0;
+}
+.task_text{
+    margin: 0;
+    text-transform: capitalize;
+}
+.del{
+    width: 20px;
+    height: 20px;
+    background: url(./../../../images/del.png) 50% no-repeat;
+    background-size: contain;
+    cursor: pointer;
+}

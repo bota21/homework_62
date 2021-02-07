@@ -1,0 +1,24 @@
+.form_wrapper input {
+    width: 343px;
+    padding: 10px;
+    outline: none;
+    text-transform: capitalize;
+}
+.form_wrapper button{
+    padding: 12px 20px;
+    text-transform: uppercase;
+    margin-left: 10px;
+    background: #27A3DE;
+    outline: none;
+    border: none;
+    border-radius: 2px;
+    box-shadow: 0 0 4px #ccc;
+    color: #fff;
+    font-weight: 900;
+}
+.form_wrapper button:hover{
+    opacity: 0.9;
+}
+.form_wrapper button:active{
+    box-shadow: inset 0 0 4px #ccc;
+}
